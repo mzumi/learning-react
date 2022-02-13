@@ -1,4 +1,3 @@
-import React, { useState } from "react"
 import { FaStar } from "react-icons/fa"
 
 const Star: React.FC<{
@@ -7,16 +6,14 @@ const Star: React.FC<{
   return <FaStar color={props.selected ? "red" : "gray"} onClick={props.onSelect} />
 }
 
-export const StarRating: React.FC<{ totalStars: number, selectedStars: number }> = (props) => {
-  const [selectedStars, setSelectedStars] = useState(props.selectedStars)
-
+export const StarRating: React.FC<{ totalStars: number, selectedStars: number, onRate: (rating: number) => void }> = (props) => {
   return (
     <div>
       {[...Array(props.totalStars)].map((_, i) => (
-        <Star key={i} selected={selectedStars > i} onSelect={() => setSelectedStars(i + 1)} />)
+        <Star key={i} selected={props.selectedStars > i} onSelect={() => props.onRate(i + 1)} />)
       )}
       <p>
-        {selectedStars} of {props.totalStars} stars
+        {props.selectedStars} of {props.totalStars} stars
       </p>
     </div>
   )

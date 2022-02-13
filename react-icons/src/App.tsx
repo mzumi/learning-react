@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import colorData from './data/colors.json'
 import { ColorList } from './ColorList'
-import { StarRating } from './StarRating'
 
 function App() {
   const [colors, setColors] = useState(colorData);
@@ -9,8 +8,14 @@ function App() {
   return (
     <ColorList
       colors={colors}
+      onRateColor={(id: string, rating: number) => {
+        const newColors = colors.map(color =>
+          color.id === id ? { ...color, rating } : color
+        );
+        setColors(newColors)
+      }}
       onRemoveColor={(id: string) => {
-        const newColors = colors.filter(c => c.id != id)
+        const newColors = colors.filter(c => c.id !== id)
         setColors(newColors)
       }} />
   );
