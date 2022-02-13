@@ -4,10 +4,15 @@ import { ColorList } from './ColorList'
 import { StarRating } from './StarRating'
 
 function App() {
-  const [colors] = useState(colorData);
+  const [colors, setColors] = useState(colorData);
 
   return (
-    <ColorList colors={colors} />
+    <ColorList
+      colors={colors}
+      onRemoveColor={(id: string) => {
+        const newColors = colors.filter(c => c.id != id)
+        setColors(newColors)
+      }} />
   );
 }
 
