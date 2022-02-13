@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { FaStar } from "react-icons/fa"
 
 const Star: React.FC<{
-  selected: boolean, onSelect: React.MouseEventHandler<SVGElement>
+  selected: boolean, onSelect: () => void
 }> = (props) => {
   return <FaStar color={props.selected ? "red" : "gray"} onClick={props.onSelect} />
 }
