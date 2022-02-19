@@ -1,29 +1,28 @@
 import React, { useRef, useState } from 'react'
+import { useInput } from './hooks'
 
-export const AddColorForm: React.FC<{ onNewColor: (title?: string, color?: string) => void }> = (props) => {
-  const [title, setTitle] = useState("")
-  const [color, setColor] = useState("#000000")
+export const AddColorForm: React.FC<{ onNewColor: (title: string, color: string) => void }> = (props) => {
+  const [titleProps, resetTitle] = useInput("")
+  const [colorProps, resetColor] = useInput("#000000")
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    props.onNewColor(title, color)
-    setTitle("")
-    setColor("")
+    props.onNewColor(titleProps.value, colorProps.value)
+    resetTitle()
+    resetColor()
   };
 
   return (
     <form onSubmit={submit}>
       <input
-        value={title}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+        {...titleProps}
         type="text"
         placeholder='color title...'
         required
       />
       <input
-        value={color}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColor(e.target.value)}
+        {...colorProps}
         type="color"
         required
       />
