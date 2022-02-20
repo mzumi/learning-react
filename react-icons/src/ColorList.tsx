@@ -1,18 +1,20 @@
 import React from "react"
 import { Color } from "./Color"
-import { ColorData } from "./ColorData"
+import { useColors } from "./ColorProvider"
 
-export const ColorList: React.FC<{ colors: ColorData[], onRateColor: (id: string, rating: number) => void, onRemoveColor: (id: string) => void }> = (props) => {
-  if (!props.colors.length) return <div>No colors</div>
+export const ColorList: React.FC<{}> = () => {
+  const { colors, rateColor, removeColor } = useColors()
+
+  if (!colors.length) return <div>No colors</div>
 
   return (
     <div>
-      {props.colors.map(color =>
+      {colors.map(color =>
         <Color
           key={color.id}
           colorData={color}
-          onRate={props.onRateColor}
-          onRemove={props.onRemoveColor} />
+          onRate={rateColor}
+          onRemove={removeColor} />
       )}
     </div>
   );
